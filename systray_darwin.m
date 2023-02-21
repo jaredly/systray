@@ -84,6 +84,10 @@ withParentMenuId: (int)theParentMenuId
   [self updateTitleButtonStyle];
 }
 
+- (void)removeAllItems {
+    [menu removeAllItems];
+}
+
 - (void)setTitle:(NSString *)title {
   statusItem.button.title = title;
   [self updateTitleButtonStyle];
@@ -183,6 +187,14 @@ NSMenuItem *find_menu_item(NSMenu *ourMenu, NSNumber *menuId) {
   }
 }
 
+- (void) remove_menu_item:(NSNumber*) menuId
+{
+  NSMenuItem* menuItem = find_menu_item(menu, menuId);
+  if (menuItem != NULL) {
+    [menu removeItem:menuItem];
+  }
+}
+
 - (void) setMenuItemIcon:(NSArray*)imageAndMenuId {
   NSImage* image = [imageAndMenuId objectAtIndex:0];
   NSNumber* menuId = [imageAndMenuId objectAtIndex:1];
@@ -235,6 +247,10 @@ void runInMainThread(SEL method, id object) {
                   waitUntilDone: YES];
 }
 
+void removeAllItems() {
+  runInMainThread(@selector(removeAllItems), nil);
+}
+
 void setIcon(const char* iconBytes, int length, bool template) {
   NSData* buffer = [NSData dataWithBytes: iconBytes length:length];
   NSImage *image = [[NSImage alloc] initWithData:buffer];
@@ -281,6 +297,11 @@ void add_separator(int menuId) {
 void hide_menu_item(int menuId) {
   NSNumber *mId = [NSNumber numberWithInt:menuId];
   runInMainThread(@selector(hide_menu_item:), (id)mId);
+}
+
+void remove_menu_item(int menuId) {
+  NSNumber *mId = [NSNumber numberWithInt:menuId];
+  runInMainThread(@selector(remove_menu_item:), (id)mId);
 }
 
 void show_menu_item(int menuId) {

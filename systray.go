@@ -190,6 +190,11 @@ func (item *MenuItem) Hide() {
 	hideMenuItem(item)
 }
 
+// Hide hides a menu item
+func (item *MenuItem) Remove() {
+	removeMenuItem(item)
+}
+
 // Show shows a previously hidden menu item
 func (item *MenuItem) Show() {
 	showMenuItem(item)

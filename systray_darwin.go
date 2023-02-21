@@ -28,6 +28,11 @@ func (item *MenuItem) SetIcon(iconBytes []byte) {
 	C.setMenuItemIcon(cstr, (C.int)(len(iconBytes)), C.int(item.id), false)
 }
 
+// Removes all items
+func RemoveAllItems() {
+	C.removeAllItems()
+}
+
 // SetTemplateIcon sets the icon of a menu item as a template icon (on macOS). On Windows, it
 // falls back to the regular icon bytes and on Linux it does nothing.
 // templateIconBytes and regularIconBytes should be the content of .ico for windows and
