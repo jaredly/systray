@@ -25,6 +25,14 @@ func quit() {
 // SetIcon sets the systray icon.
 // iconBytes should be the content of .ico for windows and .ico/.jpg/.png
 // for other platforms.
+func SetIconWithSize(iconBytes []byte, width int, height int) {
+	cstr := (*C.char)(unsafe.Pointer(&iconBytes[0]))
+	C.setIconWithSize(cstr, (C.int)(len(iconBytes)), (C.int)(width), (C.int)(height), false)
+}
+
+// SetIcon sets the systray icon.
+// iconBytes should be the content of .ico for windows and .ico/.jpg/.png
+// for other platforms.
 func SetIcon(iconBytes []byte) {
 	cstr := (*C.char)(unsafe.Pointer(&iconBytes[0]))
 	C.setIcon(cstr, (C.int)(len(iconBytes)), false)

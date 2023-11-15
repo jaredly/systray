@@ -98,7 +98,7 @@ withParentMenuId: (int)theParentMenuId
     if ([statusItem.button.title length] == 0) {
       statusItem.button.imagePosition = NSImageOnly;
     } else {
-      statusItem.button.imagePosition = NSImageLeft;
+      statusItem.button.imagePosition = NSImageRight;
     }
   } else {
     statusItem.button.imagePosition = NSNoImage;
@@ -249,6 +249,14 @@ void runInMainThread(SEL method, id object) {
 
 void removeAllItems() {
   runInMainThread(@selector(removeAllItems), nil);
+}
+
+void setIconWithSize(const char* iconBytes, int length, int width, int height, bool template) {
+  NSData* buffer = [NSData dataWithBytes:iconBytes length:length];
+  NSImage *image = [[NSImage alloc] initWithData:buffer];
+  [image setSize:NSMakeSize(width, height)];
+  image.template = template;
+  runInMainThread(@selector(setIcon:), (id)image);
 }
 
 void setIcon(const char* iconBytes, int length, bool template) {

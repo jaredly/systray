@@ -7,6 +7,7 @@ void registerSystray(void);
 int nativeLoop(void);
 
 void setIcon(const char* iconBytes, int length, bool template);
+void setIconWithSize(const char* iconBytes, int length, int width, int height, bool template);
 void setMenuItemIcon(const char* iconBytes, int length, int menuId, bool template);
 void setTitle(char* title);
 void removeAllItems();
